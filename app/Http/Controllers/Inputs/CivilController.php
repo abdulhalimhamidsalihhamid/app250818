@@ -24,6 +24,7 @@ class CivilController extends Controller
     {
         $data = $request->validate([
             'student_name'    => ['required','string','max:150'],
+            'student_number'  => ['required','string','max:150'],
             'email'           => ['nullable','email','max:150'],
             'dob'             => ['nullable','date'],
             'national_id'     => ['required','string','max:32','unique:students,national_id'],
@@ -47,6 +48,7 @@ class CivilController extends Controller
     // صفحة تعديل
     public function edit(Student $student)
     {
+        
         return view('pages.inputs.civil_edit', compact('student'));
     }
 
@@ -54,19 +56,20 @@ class CivilController extends Controller
     public function update(Request $request, Student $student)
     {
         $data = $request->validate([
-            'student_name'    => ['required','string','max:150'],
-            'email'           => ['nullable','email','max:150'],
-            'dob'             => ['nullable','date'],
-            'national_id'     => ['required','string','max:32', Rule::unique('students','national_id')->ignore($student->id)],
-            'phone'           => ['nullable','string','max:32'],
-            'gender'          => ['nullable', Rule::in(['male','female'])],
-            'department'      => ['nullable','string','max:60'],
-            'class_name'      => ['nullable','string','max:60'],
-            'enrollment_date' => ['nullable','date'],
-            'blood_type'      => ['nullable','string','max:8'],
-            'address'         => ['nullable','string'],
-            'guardian_name'   => ['nullable','string','max:150'],
-            'guardian_phone'  => ['nullable','string','max:32'],
+            'student_name'     => ['required','string','max:150'],
+            'student_number'   => ['required','string','max:150'],
+            'email'            => ['nullable','email','max:150'],
+            'dob'              => ['nullable','date'],
+            'national_id'      => ['required','string','max:32', Rule::unique('students','national_id')->ignore($student->id)],
+            'phone'            => ['nullable','string','max:32'],
+            'gender'           => ['nullable', Rule::in(['male','female'])],
+            'department'       => ['nullable','string','max:60'],
+            'class_name'       => ['nullable','string','max:60'],
+            'enrollment_date'  => ['nullable','date'],
+            'blood_type'       => ['nullable','string','max:8'],
+            'address'          => ['nullable','string'],
+            'guardian_name'    => ['nullable','string','max:150'],
+            'guardian_phone'   => ['nullable','string','max:32'],
         ]);
 
         $student->update($data);

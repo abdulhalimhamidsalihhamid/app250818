@@ -66,10 +66,16 @@
 <div class="container py-4" dir="rtl">
 
   {{-- تعريف المدرسة --}}
-  <div class="hero mb-4">
-    <div class="content">
-      <h2>مرحبًا بكم في {{ $schoolName }}</h2>
-      <p>{{ $about }}</p>
+
+  <div style="width:100%; height:50vh; position:relative; background:url('images/12.jpg') center/cover no-repeat; display:flex; align-items:center; justify-content:center; text-align:center; color:#111;">
+
+    <!-- طبقة الشفافية -->
+    <div style="position:absolute; inset:0; background:rgba(255,255,255,0.6);"></div>
+
+    <!-- المحتوى -->
+    <div style="position:relative; z-index:2; padding:40px 20px;">
+      <h2 style="font-size:42px; font-weight:bold; margin-bottom:15px;">مرحبًا بكم في بوابة الطلاب الثانوية</h2>
+      <p style="font-size:20px; margin:0; opacity:0.9;">بوابة التميز الأكاديمي والأنشطة المدرسية وموارد الطلاب</p>
     </div>
   </div>
 

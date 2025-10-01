@@ -61,7 +61,12 @@
                    id="national_id" name="national_id" value="{{ old('national_id') }}" placeholder="مثال: 1234567890123">
             @error('national_id') <div class="invalid-feedback">{{ $message }}</div> @enderror
         </div>
-
+<div class="col-md-6">
+    <label for="student_number" class="form-label">الرقم الدراسي <span class="text-danger">*</span></label>
+    <input type="text" class="form-control @error('student_number') is-invalid @enderror"
+           id="student_number" name="student_number" value="{{ old('student_number') }}" placeholder="مثال: 2025001">
+    @error('student_number') <div class="invalid-feedback">{{ $message }}</div> @enderror
+</div>
         <div class="col-md-6">
             <label for="phone" class="form-label">رقم الهاتف</label>
             <input type="tel" class="form-control @error('phone') is-invalid @enderror"
@@ -165,6 +170,7 @@
                                     <th>البريد</th>
                                     <th>الميلاد</th>
                                     <th>الرقم الوطني</th>
+                                    <th>الرقم الدراسي</th>
                                     <th>الهاتف</th>
                                     <th>الجنس</th>
                                     <th class="text-center" style="width:180px">إجراءات</th>
@@ -177,6 +183,7 @@
                                         <td>{{ $student->email }}</td>
                                         <td>{{ $student->dob?->format('Y-m-d') }}</td>
                                         <td>{{ $student->national_id }}</td>
+                                        <td>{{ $student->student_number }}</td>
                                         <td>{{ $student->phone }}</td>
                                         <td>{{ $student->gender === 'male' ? 'ذكر' : ($student->gender === 'female' ? 'أنثى' : '-') }}</td>
                                         <td class="text-center">

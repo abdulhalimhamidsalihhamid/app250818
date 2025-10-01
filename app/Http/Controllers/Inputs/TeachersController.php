@@ -11,7 +11,7 @@ use App\Models\Timetable;
 
 class TeachersController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
             $subjects = Timetable::query()
         ->get(['period1','period2','period3','period4','period5','period6','period7'])

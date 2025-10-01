@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\CertificateController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TimetableController;
 use App\Http\Controllers\Inputs\CivilController;
@@ -20,12 +21,12 @@ use App\Http\Controllers\Inputs\ResultsViewController;
 
 use App\Http\Controllers\Controller;
 
-Route::get('/', [Controller::class, 'index']);
+Route::get('/', [Controller::class, 'index'])->name("homepage");
 
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
 
 
 
@@ -33,10 +34,9 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 // كل ما يلي يتطلب تسجيل دخول وتحقق بريد (لو مفعّل)
 //Route::middleware(['auth','verified'])->group(function () {
-
-
-// مجموعة Routes خاصة بإدخال البيانات المدنية
 Route::middleware(['auth'])->group(function () {
+Route::get('/home', [App\Http\Controllers\Controller::class, 'index2'])->name('home');
+
     // مجموعة inputs.civil.* (كما لديك)
     Route::prefix('inputs')->name('inputs.')->group(function () {
 
@@ -56,7 +56,7 @@ Route::middleware(['auth'])->group(function () {
         Route::put('/{student}',       [CivilController::class, 'update'])->name('update');
         Route::delete('/{student}',    [CivilController::class, 'destroy'])->name('destroy');
     });
-});
+
 
 
     // Inputs (مجموعة المدخلات من القائمة المنسدلة)
@@ -83,9 +83,9 @@ Route::middleware(['auth'])->group(function () {
 
         // عرض النموذج + تحميل المواد بحسب التخصص/الفصل/السنة
         Route::get('/results', [ResultsController::class, 'index'])->name('results');
-
         // حفظ/تحديث الدرجات
         Route::post('/results', [ResultsController::class, 'save'])->name('results.save');
+
     });
 Route::prefix('profile')->name('profile.')->group(function () {
         // صفحة تعديل الحساب
@@ -179,4 +179,27 @@ Route::middleware(['auth'])
         Route::get('/student', [ResultsViewController::class, 'student'])->name('student');
     });
 
+
+
+Route::get('/certificates/create', [CertificateController::class, 'create'])->name('certificates.create');
+Route::post('/certificates', [CertificateController::class, 'store'])->name('certificates.store');
+Route::get('/certificates/{code}', [CertificateController::class, 'show'])->name('certificates.show');
+Route::get('/certificates/{code}/pdf', [CertificateController::class, 'pdf'])->name('certificates.pdf');
+
+Route::get('/certificates/search/sss', [CertificateController::class, 'search'])->name('certificates.search');
+
+Route::get('/certificates/find/ds', function(\Illuminate\Http\Request $request){
+    $code = $request->query('code');
+    return redirect()->route('certificates.show',$code);
+})->name('certificates.showByCode');
+
+Route::delete('certificates/{id}', [CertificateController::class,'destroy'])
+    ->name('certificates.destroy');
+
+
+Route::get('/_mpdf_check', function () {
+    return class_exists(\Mpdf\Mpdf::class) ? 'OK' : 'NO';
+});
+
+});
 //});

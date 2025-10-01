@@ -71,9 +71,9 @@
     {{-- Navbar --}}
     <nav class="navbar navbar-expand-lg navbar-light shadow-sm navbar-glass">
         <div class="container">
-            <a class="navbar-brand d-inline-flex align-items-center gap-2" href="{{ route('home') }}">
+            <a class="navbar-brand d-inline-flex align-items-center gap-2" href="{{ url('/') }}">
                 <i class="bi bi-mortarboard-fill"></i>
-                <span>{{ config('app.name', 'Laravel') }}</span>
+                <span>ثنوية القطرون</span>
             </a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -86,44 +86,109 @@
                 <!-- الروابط الرئيسية (يمين في RTL) -->
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('home') }}">
+                        <a class="nav-link" href="{{ route('homepage') }}">
                             <i class="bi bi-house-door-fill"></i> الرئيسية
                         </a>
                     </li>
 
                     <!-- قائمة المدخلات -->
-                    <li class="nav-item dropdown">
-  <a class="nav-link dropdown-toggle d-inline-flex align-items-center gap-2"
-     href="#" id="menuInputs" role="button"
-     data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
-     <i class="bi bi-ui-checks-grid"></i> المدخلات
-  </a>
+                   @php $role = auth()->user()->role ?? null; @endphp
 
-  <ul class="dropdown-menu shadow dropdown-menu-end" aria-labelledby="menuInputs">
-      <li><a class="dropdown-item d-inline-flex align-items-center gap-2" href="#"><i class="bi bi-card-list"></i> إدخال البيانات تسجيل المدني</a></li>
-      <li><a class="dropdown-item d-inline-flex align-items-center gap-2" href="#"><i class="bi bi-calendar3"></i> إدخال الجداول</a></li>
-      <li><a class="dropdown-item d-inline-flex align-items-center gap-2" href="#"><i class="bi bi-graph-up"></i> إدخال نتيجة الطلاب</a></li>
-      <li><hr class="dropdown-divider"></li>
-      <li><a class="dropdown-item d-inline-flex align-items-center gap-2" href="#"><i class="bi bi-newspaper"></i> إدخال الأخبار</a></li>
-      <li><a class="dropdown-item d-inline-flex align-items-center gap-2" href="#"><i class="bi bi-megaphone"></i> إدخال الإعلانات</a></li>
-      <li><a class="dropdown-item d-inline-flex align-items-center gap-2" href="#"><i class="bi bi-trophy"></i> إدخال النشاطات</a></li>
-      <li><hr class="dropdown-divider"></li>
-      <li><a class="dropdown-item d-inline-flex align-items-center gap-2" href="#"><i class="bi bi-people-fill"></i> إضافة الموظفين</a></li>
-      <li><a class="dropdown-item d-inline-flex align-items-center gap-2" href="#"><i class="bi bi-check2-circle"></i> إدخال الحضور</a></li>
-      <li><a class="dropdown-item d-inline-flex align-items-center gap-2" href="#"><i class="bi bi-person-badge"></i> إدخال بيانات المعلمين</a></li>
-  </ul>
-</li>
+    <li class="nav-item dropdown">
 
+        <a class="nav-link dropdown-toggle d-inline-flex align-items-center gap-2"
+           href="#" id="menuInputs" role="button"
+           data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+           <i class="bi bi-ui-checks-grid"></i> المدخلات
+        </a>
 
-                    <!-- روابط سريعة -->
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="bi bi-gear"></i> حسابي</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="bi bi-people-gear"></i> المستخدمون</a>
-                    </li>
-                </ul>
+        <ul class="dropdown-menu shadow dropdown-menu-end" aria-labelledby="menuInputs">
+            @if ($role === 'admin' || $role === 'staff' )
+            {{-- admin + staff --}}
+            <li>
+                <a class="dropdown-item d-inline-flex align-items-center gap-2"
+                   href="{{ route('inputs.civil') }}">
+                    <i class="bi bi-card-list"></i> إدخال البيانات تسجيل المدني
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item d-inline-flex align-items-center gap-2"
+                   href="{{ route('inputs.timetables') }}">
+                    <i class="bi bi-calendar3"></i> إدخال الجداول
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item d-inline-flex align-items-center gap-2"
+                   href="{{ route('inputs.results') }}">
+                    <i class="bi bi-graph-up"></i> إدخال نتيجة الطلاب
+                </a>
+            </li>
 
+            <li><hr class="dropdown-divider"></li>
+
+            <li>
+                <a class="dropdown-item d-inline-flex align-items-center gap-2"
+                   href="{{ route('inputs.news') }}">
+                    <i class="bi bi-newspaper"></i> إدخال الأخبار
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item d-inline-flex align-items-center gap-2"
+                   href="{{ route('inputs.announcements') }}">
+                    <i class="bi bi-megaphone"></i> إدخال الإعلانات
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item d-inline-flex align-items-center gap-2"
+                   href="{{ route('inputs.activities') }}">
+                    <i class="bi bi-trophy"></i> إدخال النشاطات
+                </a>
+            </li>
+
+            <li><hr class="dropdown-divider"></li>
+
+            {{-- فقط admin --}}
+            @if ($role === 'admin')
+                <li>
+                    <a class="dropdown-item d-inline-flex align-items-center gap-2"
+                       href="{{ route('inputs.staff') }}">
+                        <i class="bi bi-people-fill"></i> إضافة الموظفين
+                    </a>
+                </li>
+            @endif
+
+            {{-- admin + staff --}}
+            <li>
+                <a class="dropdown-item d-inline-flex align-items-center gap-2"
+                   href="{{ route('inputs.attendance') }}">
+                    <i class="bi bi-check2-circle"></i> إدخال الحضور
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item d-inline-flex align-items-center gap-2"
+                   href="{{ route('inputs.teachers') }}">
+                    <i class="bi bi-person-badge"></i> إدخال بيانات المعلمين
+                </a>
+            </li>
+            @endif
+        </ul>
+
+    </li>
+
+    {{-- روابط سريعة --}}
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('profile.edit') }}">
+            <i class="bi bi-gear"></i> حسابي
+        </a>
+    </li>
+
+    @if ($role === 'admin')
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('admin.users.index') }}">
+                <i class="bi bi-people-gear"></i> المستخدمون
+            </a>
+        </li>
+    @endif
                 <!-- يمين الشريط: Auth -->
                 <ul class="navbar-nav ms-auto">
                     @guest
@@ -148,8 +213,6 @@
                                 <i class="bi bi-person-circle"></i> {{ Auth::user()->name }}
                             </a>
                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarUser">
-                                <a class="dropdown-item d-inline-flex align-items-center gap-2" href="#"><i class="bi bi-person-gear"></i> تعديل الحساب</a>
-                                <a class="dropdown-item d-inline-flex align-items-center gap-2" href="#"><i class="bi bi-people-gear"></i> إدارة المستخدمين</a>
                                 <hr class="dropdown-divider">
                                 <a class="dropdown-item d-inline-flex align-items-center gap-2"
                                    href="{{ route('logout') }}"

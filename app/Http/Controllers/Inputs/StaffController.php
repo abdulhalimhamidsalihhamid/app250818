@@ -10,7 +10,7 @@ use App\Models\Staff;
 
 class StaffController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $staff = Staff::latest('id')->paginate(10);
         return view('pages.inputs.staff', compact('staff'));

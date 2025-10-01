@@ -52,7 +52,7 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
+@if (auth()->user()?->role == 'admin'  || auth()->user()?->role == 'staff')
                     <div class="dash-grid mt-2">
                         <a href="{{ route('inputs.civil') }}" class="dash-link">
                             <div class="dash-card">
@@ -77,7 +77,7 @@
                                 <div class="desc">درجات الفصول والامتحانات.</div>
                             </div>
                         </a>
-
+@endif
 {{-- إدخال النتائج (بحسب المعلّم/المقرر) --}}
 <a href="{{ route('inputs.teacher_results') }}" class="dash-link" aria-label="إدخال نتائج الطلاب">
     <div class="dash-card">
@@ -95,14 +95,16 @@
         <div class="desc">استعراض نتائج الطالب حسب الفصل والسنة.</div>
     </div>
 </a>
-
-                        <a href="{{ route('inputs.news') }}" class="dash-link">
+@if (auth()->user()?->role == 'admin'  || auth()->user()?->role == 'staff')
+<a href="{{ route('inputs.news') }}" class="dash-link">
                             <div class="dash-card">
                                 <div class="icon">📰</div>
                                 <div class="title">إدخال الأخبار</div>
                                 <div class="desc">أحدث أخبار المدرسة.</div>
                             </div>
                         </a>
+
+
 
                         <a href="{{ route('inputs.announcements') }}" class="dash-link">
                             <div class="dash-card">
@@ -119,7 +121,8 @@
                                 <div class="desc">أنشطة ومسابقات المدرسة.</div>
                             </div>
                         </a>
-
+@endif
+@if (auth()->user()?->role == 'admin')
                         <a href="{{ route('inputs.staff') }}" class="dash-link">
                             <div class="dash-card">
                                 <div class="icon">👥</div>
@@ -127,7 +130,8 @@
                                 <div class="desc">تسجيل بيانات العاملين.</div>
                             </div>
                         </a>
-
+@endif
+@if (auth()->user()?->role == 'admin'  || auth()->user()?->role == 'staff')
                         <a href="{{ route('inputs.attendance') }}" class="dash-link">
                             <div class="dash-card">
                                 <div class="icon">✅</div>
@@ -135,7 +139,13 @@
                                 <div class="desc">تتبّع حضور الطلاب والموظفين.</div>
                             </div>
                         </a>
-
+<a href="{{ route('certificates.create') }}" class="dash-link">
+    <div class="dash-card">
+        <div class="icon">🎓</div>
+        <div class="title">المستويات الدراسية للطلاب</div>
+        <div class="desc">إدارة وتسجيل بيانات المستويات الدراسية.</div>
+    </div>
+</a>
                         <a href="{{ route('inputs.teachers') }}" class="dash-link">
                             <div class="dash-card">
                                 <div class="icon">👨‍🏫</div>
@@ -144,12 +154,16 @@
                             </div>
                         </a>
 
+
                         <a href="{{ route('profile.edit') }}" class="dash-link">
                             <div class="dash-card"><div class="icon">⚙️</div>
                                 <div class="title">تعديل الحساب</div>
                                 <div class="desc">الاسم، البريد، كلمة المرور.</div>
                             </div>
                         </a>
+@endif
+                    @if (auth()->user()?->role == 'admin'  || auth()->user()?->role == 'staff')
+
 
                         <a href="{{ route('admin.users.index') }}" class="dash-link">
                             <div class="dash-card"><div class="icon">👥</div>
@@ -158,6 +172,7 @@
                             </div>
                         </a>
                     </div>
+                    @endif
                      {{-- /dash-grid --}}
                 </div>
             </div>

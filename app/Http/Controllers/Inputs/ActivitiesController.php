@@ -10,7 +10,7 @@ use App\Models\Activity;
 
 class ActivitiesController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $activities = Activity::latest('date')->latest('id')->paginate(8);
         return view('pages.inputs.activities', compact('activities'));

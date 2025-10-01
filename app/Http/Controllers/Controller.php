@@ -47,4 +47,9 @@ class Controller extends BaseController
             'stats','news','activities','announcements','schoolName','about','lat','lng','zoom'
         ));
     }
+  public function index2()
+    {
+        return view('home');
+    }
+
 }

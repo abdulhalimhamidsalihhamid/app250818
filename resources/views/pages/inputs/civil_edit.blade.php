@@ -42,7 +42,12 @@
                                 <label class="form-label">الرقم الوطني</label>
                                 <input type="text" class="form-control" name="national_id" value="{{ old('national_id', $student->national_id) }}">
                             </div>
-
+<div class="col-md-6">
+    <label for="student_number" class="form-label">الرقم الدراسي <span class="text-danger">*</span></label>
+    <input type="text" class="form-control @error('student_number') is-invalid @enderror"
+           id="student_number" name="student_number" value="{{ old('student_number', $student->student_number) }}" placeholder="مثال: 2025001">
+    @error('student_number') <div class="invalid-feedback">{{ $message }}</div> @enderror
+</div>
                             <div class="col-md-6">
                                 <label class="form-label">رقم الهاتف</label>
                                 <input type="text" class="form-control" name="phone" value="{{ old('phone', $student->phone) }}">
