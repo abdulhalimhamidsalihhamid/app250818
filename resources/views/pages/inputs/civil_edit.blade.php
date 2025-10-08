@@ -66,7 +66,8 @@
                                 <select name="department" class="form-select">
                                     @php $dep = old('department',$student->department); @endphp
                                     <option value="">—</option>
-                                    <option value="science"    {{ $dep==='science' ? 'selected':'' }}>العلوم</option>
+                                    <option value="general"    {{ $dep==='general' ? 'selected':'' }}>عام</option>
+                                    <option value="science"    {{ $dep==='science' ? 'selected':'' }}>علمي</option>
                                     <option value="literature" {{ $dep==='literature' ? 'selected':'' }}>الأدبي</option>
                                 </select>
                             </div>

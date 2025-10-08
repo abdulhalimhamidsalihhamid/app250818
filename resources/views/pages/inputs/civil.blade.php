@@ -88,8 +88,9 @@
             <label for="department" class="form-label">القسم الدراسي</label>
             <select id="department" name="department" class="form-select @error('department') is-invalid @enderror">
                 <option disabled {{ old('department') ? '' : 'selected' }}>اختر القسم</option>
-                <option value="علمي"    {{ old('department')==='علمي' ? 'selected':'' }}>علمي</option>
-                <option value="أدبي" {{ old('department')==='أدبي' ? 'selected':'' }}>الأدبي</option>
+                <option value="general"    {{ old('department')==='عام' ? 'selected':'' }}>عام</option>
+                <option value="science"    {{ old('department')==='علمي' ? 'selected':'' }}>علمي</option>
+                <option value="literature" {{ old('department')==='أدبي' ? 'selected':'' }}>الأدبي</option>
             </select>
             @error('department') <div class="invalid-feedback">{{ $message }}</div> @enderror
         </div>

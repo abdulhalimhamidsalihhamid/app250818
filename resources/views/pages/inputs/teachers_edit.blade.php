@@ -58,20 +58,32 @@
                         </div>
 
                         <div class="col-md-4">
-                            <label class="form-label">المادة</label>
-                            <input type="text" name="subject" class="form-control" value="{{ old('subject',$teacher->subject) }}">
-                        </div>
+    <label class="form-label">المادة (اختياري)</label>
+    <select name="subject" class="form-select">
+        <option value="">— اختر (اختياري) —</option>
+        @foreach(($subjects ?? []) as $subj)
+            <option value="{{ $subj }}" {{ old('subject')===$subj ? 'selected' : '' }}>{{ $subj }}</option>
+        @endforeach
+    </select>
+</div>
 
                         <div class="col-md-4">
                             <label class="form-label">المؤهل</label>
                             <input type="text" name="qualification" class="form-control" value="{{ old('qualification',$teacher->qualification) }}">
                         </div>
 
-                        <div class="col-md-4">
-                            <label class="form-label">القسم</label>
-                            <input type="text" name="department" class="form-control" value="{{ old('department',$teacher->department) }}">
-                        </div>
 
+<div class="col-md-4">
+            <label for="department" class="form-label">القسم الدراسي</label>
+            <select id="department" name="department" class="form-select @error('department') is-invalid @enderror" >
+                @php $dep = old('department',$teacher->department); @endphp
+                <option disabled {{ old('department') ? '' : 'selected' }}>اختر القسم</option>
+                <option value="general"    {{ $dep==='general' ? 'selected':'' }}>عام</option>
+                <option value="science"    {{ $dep==='science' ? 'selected':'' }}>علمي</option>
+                <option value="literature" {{ $dep==='literature' ? 'selected':'' }}>الأدبي</option>
+            </select>
+            @error('department') <div class="invalid-feedback">{{ $message }}</div> @enderror
+        </div>
                         <div class="col-md-4">
                             <label class="form-label">المراحل التي يدرسها</label>
                             <input type="text" name="grade_levels" class="form-control" value="{{ old('grade_levels',$teacher->grade_levels) }}">

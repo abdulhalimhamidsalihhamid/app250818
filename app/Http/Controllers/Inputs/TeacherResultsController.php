@@ -39,7 +39,7 @@ public function store(\Illuminate\Http\Request $request)
     public function single(Request $request)
     {
         $teachers = Teacher::orderBy('name')->get(['id','name','subject','department','national_id']);
-
+       
         // اختيار افتراضي لو المستخدم معلّم
         $selectedTeacherId = $request->query('teacher_id');
         if (auth()->user()?->role === 'teacher' && !$selectedTeacherId) {

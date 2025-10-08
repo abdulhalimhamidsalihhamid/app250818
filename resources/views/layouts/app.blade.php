@@ -86,7 +86,7 @@
                 <!-- الروابط الرئيسية (يمين في RTL) -->
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('homepage') }}">
+                        <a class="nav-link" href="{{ route('home') }}">
                             <i class="bi bi-house-door-fill"></i> الرئيسية
                         </a>
                     </li>

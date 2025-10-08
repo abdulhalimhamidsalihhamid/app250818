@@ -24,8 +24,7 @@ public function index(Request $request)
         $year = (int) $request->input('year', now()->year);
 
         $selectedStudentId = $request->input('student_id');
-
-        // مخرجات للعرض
+       // مخرجات للعرض
         $specialization = null;   // علمي/أدبي من الطلاب
         $subjects       = collect();
         $existing       = collect();

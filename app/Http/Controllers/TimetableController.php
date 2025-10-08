@@ -40,7 +40,7 @@ class TimetableController extends Controller
 {
    $validated = $request->validate([
         'day'            => ['required', Rule::in(['الأحد','الإثنين','الثلاثاء','الأربعاء','الخميس'])],
-        'specialization' => ['required', Rule::in(['علمي','أدبي'])],
+        'specialization' => ['required', Rule::in(['general','science','literature'])],
         'grade'          => ['required', Rule::in(['الأولى','الثانية','الثالثة'])],
         'period1' => ['required','string','max:120'],
         'period2' => ['required','string','max:120'],

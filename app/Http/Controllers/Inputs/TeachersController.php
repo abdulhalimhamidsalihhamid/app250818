@@ -84,7 +84,20 @@ class TeachersController extends Controller
 
     public function edit(Teacher $teacher)
     {
-        return view('pages.inputs.teachers_edit', compact('teacher'));
+         $subjects = Timetable::query()
+        ->get(['period1','period2','period3','period4','period5','period6','period7'])
+        ->flatMap(function ($t) {
+            return [
+                $t->period1, $t->period2, $t->period3, $t->period4,
+                $t->period5, $t->period6, $t->period7,
+            ];
+        })
+        ->filter(fn($s) => $s && trim($s) !== '')
+        ->map(fn($s) => trim($s))
+        ->unique()
+        ->sort()
+        ->values();
+        return view('pages.inputs.teachers_edit', compact(['teacher','subjects']));
     }
 
     public function update(Request $request, Teacher $teacher)

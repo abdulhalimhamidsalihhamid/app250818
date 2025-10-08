@@ -92,11 +92,17 @@
                             <input type="text" name="qualification" class="form-control" value="{{ old('qualification') }}" placeholder="بكالوريوس/ماجستير...">
                         </div>
 
-                        <div class="col-md-4">
-                            <label class="form-label">القسم</label>
-                            <input type="text" name="department" class="form-control" value="{{ old('department') }}" placeholder="علمي/أدبي/لغات...">
-                        </div>
 
+<div class="col-md-4">
+            <label for="department" class="form-label">القسم الدراسي</label>
+            <select id="department" name="department" class="form-select @error('department') is-invalid @enderror">
+                <option disabled {{ old('department') ? '' : 'selected' }}>اختر القسم</option>
+                <option value="general"    {{ old('department')==='عام' ? 'selected':'' }}>عام</option>
+                <option value="science"    {{ old('department')==='علمي' ? 'selected':'' }}>علمي</option>
+                <option value="literature" {{ old('department')==='أدبي' ? 'selected':'' }}>الأدبي</option>
+            </select>
+            @error('department') <div class="invalid-feedback">{{ $message }}</div> @enderror
+        </div>
                         <div class="col-md-4">
                             <label class="form-label">المراحل التي يدرسها</label>
                             <input type="text" name="grade_levels" class="form-control" value="{{ old('grade_levels') }}" placeholder="الأولى/الثانية/الثالثة">

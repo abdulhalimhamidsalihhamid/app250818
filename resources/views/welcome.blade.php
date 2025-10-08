@@ -312,11 +312,24 @@
     document.querySelectorAll('.countup').forEach(el=>obs.observe(el));
 
     // الخريطة
-    (function(){
-      const lat={{ $lat }}, lng={{ $lng }}, zoom={{ $zoom }};
-      const map=L.map('map',{scrollWheelZoom:false}).setView([lat,lng],zoom);
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'&copy; OpenStreetMap'}).addTo(map);
-      L.marker([lat,lng]).addTo(map).bindPopup(@json($schoolName)).openPopup();
-    })();
+(function(){
+  // إحداثيات مدرسة قطرون الثانوية
+  const lat = 24.8871306, lng = 14.5233853, zoom = 17;
+
+  // إنشاء الخريطة داخل العنصر id=map
+  const map = L.map('map', { scrollWheelZoom: false }).setView([lat, lng], zoom);
+
+  // إضافة طبقة الخريطة (من OpenStreetMap)
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; OpenStreetMap contributors'
+  }).addTo(map);
+
+  // وضع علامة الموقع (Marker)
+  L.marker([lat, lng]).addTo(map)
+    .bindPopup('مدرسة قطرون الثانوية')
+    .openPopup();
+})();
+
   </script>
 @endpush

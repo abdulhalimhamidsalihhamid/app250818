@@ -21,8 +21,9 @@
             <div class="col-md-6">
                 <label>التخصص</label>
                 <select name="specialization" class="form-control">
-                    <option>علمي</option>
-                    <option>أدبي</option>
+                    <option value="general">عام</option>
+                    <option value="science"  >علمي</option>
+                    <option value="literature">أدبي</option>
                 </select>
             </div>
             <div class="col-md-4">
@@ -67,7 +68,19 @@
 @forelse($timetables as $t)
     <tr>
         <td>{{ $t->day }}</td>
-        <td>{{ $t->specialization }}</td>
+        <td>
+
+               @if($t->specialization == "literature")
+        أدبي
+    @elseif($t->specialization == "general")
+        عام
+    @elseif($t->specialization == "science")
+        علمي
+    @else
+        —
+    @endif
+
+        </td>
         <td>{{ $t->grade }}</td>
         <td>{{ $t->period1 }}</td>
         <td>{{ $t->period2 }}</td>
